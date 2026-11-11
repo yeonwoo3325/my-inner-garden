@@ -1,36 +1,869 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#e9eee5">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>MY INNER GARDEN</title>
+<meta name="apple-mobile-web-app-title" content="Inner Garden">
+<title>MY INNER GARDEN 2.0</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f5ef;color:#303b32;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}header{padding:38px 22px 22px;background:#e9eee5;border-radius:0 0 28px 28px}small{color:#718273;letter-spacing:2px}h1{font-family:Georgia,serif;font-size:34px;margin:12px 0}p{line-height:1.7;color:#697568}main{max-width:680px;margin:auto;padding:20px}nav{display:flex;gap:8px;overflow:auto;margin:10px 0 22px}button{cursor:pointer;border:0;border-radius:13px;padding:13px;background:#e6ebe2;color:#344839;font-weight:600}nav button{white-space:nowrap}button.active,.primary{background:#516e58;color:white}.card{background:white;border:1px solid #e6e8df;border-radius:20px;padding:20px;margin-bottom:15px;box-shadow:0 5px 20px #34483908}h2{font-family:Georgia,serif;font-size:25px;margin:0 0 10px}input,textarea,select{width:100%;padding:13px;margin:7px 0 13px;border:1px solid #dce2d8;border-radius:12px;font:inherit;background:#fdfdfb;color:#303b32}textarea{min-height:135px;resize:vertical}label{display:block;font-size:13px;font-weight:600}article{border-top:1px solid #e8ebe5;padding:15px 0;white-space:pre-wrap;overflow-wrap:anywhere}article:first-child{border:0}.muted{font-size:13px;color:#879186}.actions{display:flex;gap:8px;margin-top:10px}.hidden{display:none}.pill{display:inline-block;background:#edf2ea;border-radius:20px;padding:5px 10px;font-size:12px}footer{text-align:center;padding:25px;color:#889488}
+*{box-sizing:border-box}
+body{margin:0;background:#f7f5ef;color:#304033;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+header{background:#e9eee5;padding:35px 22px;border-radius:0 0 30px 30px}
+small,.eyebrow{color:#738574;letter-spacing:2px;font-size:11px}
+h1,h2{font-family:Georgia,"Apple SD Gothic Neo",serif}
+h1{font-size:34px;margin:12px 0}
+h2{font-size:24px;margin:0 0 12px}
+p{line-height:1.7;color:#68776b}
+main{max-width:760px;margin:auto;padding:16px}
+nav{display:flex;gap:7px;overflow-x:auto;padding:5px 0 18px}
+button{border:0;border-radius:12px;padding:12px 15px;background:#e9eee7;color:#344a39;font-weight:600;font-size:14px;cursor:pointer}
+nav button{white-space:nowrap}
+button.active,.primary{background:#526f59;color:white}
+.card{background:white;border:1px solid #e2e8df;border-radius:20px;padding:19px;margin-bottom:15px}
+.muted{color:#849085;font-size:13px}
+label{display:block;font-weight:600;font-size:13px;margin-top:13px}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d9e0d6;border-radius:12px;background:#fff;font:inherit;color:#304033}
+textarea{min-height:95px;resize:vertical}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.tile{background:#f0f3ed;border-radius:14px;padding:14px;text-align:left}
+.tile.selected{background:#526f59;color:white}
+.hint{background:#eff3ec;padding:13px;border-radius:12px;line-height:1.7;font-size:14px}
+.entry{border-top:1px solid #e7ebe5;padding:15px 0;overflow-wrap:anywhere}
+.entry p{white-space:pre-wrap}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tag{font-size:11px;background:#edf2e9;padding:5px 9px;border-radius:15px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.days button{padding:10px 2px;font-size:13px;min-height:40px}
+.days .marked{background:#cbdcca}
+.days .chosen{background:#526f59;color:white}
+.big{font-size:30px;font-family:Georgia,serif}
+hr{border:0;border-top:1px solid #e5eae2;margin:17px 0}
+footer{text-align:center;color:#899789;padding:30px}
 </style>
 </head>
 <body>
-<header><small>A SPACE TO BLOOM</small><h1>My Inner Garden 🌿</h1><p>배우고, 꿈꾸고, 오늘의 행복을 기록하는 나만의 정원.</p></header>
+<header>
+<small>A SPACE TO BLOOM</small>
+<h1>My Inner Garden 🌿</h1>
+<p>배우고, 실행하고, 행복을 발견하는 나만의 정원.</p>
+</header>
 <main>
-<nav id="tabs"><button data-tab="home" class="active">MY GARDEN</button><button data-tab="growth">GROWTH</button><button data-tab="action">ACTION</button><button data-tab="happiness">HAPPINESS</button></nav>
-<section id="home"><div class="card"><small>WELCOME HOME</small><h2>오늘도 나답게 피어나기</h2><p>성장은 작은 배움에서, 변화는 작은 실천에서, 행복은 오늘의 순간에서 시작돼.</p><div id="stats"></div></div><div class="card"><h2>나의 세 가지 정원</h2><p>📖 GROWTH — 독서, 필사, 경제와 마음공부</p><p>✨ ACTION — 버킷리스트, 확언, 목표 실행</p><p>🤍 HAPPINESS — 마음일기, 감사, 자유로운 생각</p></div></section>
-<section id="growth" class="hidden"><div class="card"><h2>Growth Journal</h2><p>오늘 배운 것을 나만의 지혜로.</p><form data-type="growth"><label>책 또는 공부 주제</label><input name="title" required placeholder="책 제목 / 경제 공부 / 심리학"><label>필사 또는 배운 내용</label><textarea name="body" required placeholder="마음에 남은 문장과 배운 내용을 적어봐"></textarea><label>내 생각과 작은 실천</label><textarea name="extra" placeholder="이 배움을 내 삶에 어떻게 적용할까?"></textarea><button class="primary" type="submit">기록 저장</button></form></div><div class="card"><h2>성장의 기록</h2><div id="growth-list"></div></div></section>
-<section id="action" class="hidden"><div class="card"><h2>Dreams into Action</h2><p>나의 꿈을 현실로 만드는 작은 발걸음.</p><form data-type="action"><label>목표 / 버킷리스트</label><input name="title" required placeholder="이루고 싶은 꿈"><label>목표 날짜</label><input name="date" type="date"><label>확언과 목표를 원하는 이유</label><textarea name="body" placeholder="나는 매일 성장하고 있어"></textarea><label>다음 작은 행동</label><textarea name="extra" placeholder="이번 주에 할 수 있는 한 가지"></textarea><button class="primary" type="submit">목표 저장</button></form></div><div class="card"><h2>나의 버킷리스트</h2><div id="action-list"></div></div></section>
-<section id="happiness" class="hidden"><div class="card"><h2>Heart Journal</h2><p>있는 그대로의 나를 만나는 시간.</p><form data-type="happiness"><label>오늘의 마음</label><select name="mood"><option>😌 평온</option><option>😊 행복</option><option>🥹 감동</option><option>😟 불안</option><option>😢 슬픔</option><option>😮‍💨 피곤</option></select><label>오늘의 제목</label><input name="title" required placeholder="오늘 하루를 한마디로"><label>자유로운 생각과 감정</label><textarea name="body" required placeholder="무엇이든 편하게 적어봐"></textarea><label>감사한 일 또는 나에게 해주고 싶은 말</label><textarea name="extra" placeholder="작은 행복도 소중해"></textarea><button class="primary" type="submit">마음 저장</button></form></div><div class="card"><h2>마음의 기록</h2><div id="happiness-list"></div></div></section>
-<div class="card"><h2>나의 기록 보관함</h2><p class="muted">기록은 이 기기의 브라우저에만 저장돼. 브라우저 데이터를 지우면 사라질 수 있으니 주기적으로 백업해 줘.</p><button id="backup">기록 백업</button> <button id="restore">백업 복원</button><input id="restore-file" type="file" accept="application/json" class="hidden"></div>
-</main><footer>GROWTH · ACTION · HAPPINESS</footer>
+<nav id="nav">
+<button data-page="home" class="active">HOME</button>
+<button data-page="growth">GROWTH</button>
+<button data-page="action">ACTION</button>
+<button data-page="happiness">HAPPINESS</button>
+<button data-page="calendar">CALENDAR</button>
+<button data-page="review">REFLECTION</button>
+</nav>
+
+<section id="home">
+<div class="card">
+<small>WELCOME HOME</small>
+<h2>오늘도 나답게 피어나기</h2>
+<p>완벽하게 기록하지 않아도 괜찮아. 작은 배움과 실천, 행복한 순간을 남겨보자.</p>
+<div id="stats"></div>
+</div>
+<div class="card">
+<h2>오늘의 작은 루틴</h2>
+<p>📖 10분 배우고 필사하기</p>
+<p>✨ 5분 목표 확인하기</p>
+<p>🤍 5분 마음 돌아보기</p>
+<p class="muted">매일 세 가지를 모두 할 필요는 없어.</p>
+</div>
+<div class="card">
+<h2>나의 기록 보관함</h2>
+<p>기록은 현재 이 기기의 브라우저에 저장돼. 백업을 자주 해줘.</p>
+<button id="backup">백업 파일 저장</button>
+<button id="restore">백업 복원</button>
+<input type="file" id="restoreFile" accept=".json,application/json" class="hidden">
+</div>
+</section>
+
+<section id="growth" class="hidden">
+<div class="card">
+<small>NOTE 01 · GROWTH</small>
+<h2>지혜와 성장의 기록</h2>
+<p>경제, 사업, 심리, 자기계발, 마음공부, 독서와 필사를 기록해.</p>
+<div id="growthTopics" class="grid"></div>
+<div class="hint" id="growthGuide"></div>
+</div>
+<div class="card">
+<h2>오늘의 성장 기록</h2>
+<form id="growthForm">
+<label>기록 날짜</label>
+<input type="date" name="date" required>
+<label>책 제목 또는 공부 주제</label>
+<input name="title" required placeholder="오늘 배우고 싶은 주제">
+<label>필사 · 새롭게 배운 내용</label>
+<textarea name="body" placeholder="마음에 남는 문장이나 지식을 적어봐"></textarea>
+<label>나의 생각과 해석</label>
+<textarea name="thought" placeholder="이것이 나에게 어떤 의미일까?"></textarea>
+<label>내 삶에 적용할 행동 한 가지</label>
+<textarea name="extra" placeholder="오늘 또는 이번 주의 작은 실천"></textarea>
+<button class="primary">성장 기록 저장</button>
+</form>
+</div>
+<div class="card">
+<h2>성장의 기록들</h2>
+<div id="growthList"></div>
+</div>
+</section>
+
+<section id="action" class="hidden">
+<div class="card">
+<small>NOTE 02 · ACTION</small>
+<h2>꿈을 현실로</h2>
+<p>내가 원하는 삶을 상상하고, 작은 행동으로 만들어가자.</p>
+<div id="actionTopics" class="grid"></div>
+<div class="hint" id="actionGuide"></div>
+</div>
+<div class="card">
+<h2>나의 목표와 버킷리스트</h2>
+<form id="actionForm">
+<label>기록 날짜</label>
+<input type="date" name="date" required>
+<label>목표 또는 버킷리스트</label>
+<input name="title" required placeholder="이루고 싶은 일">
+<label>목표 완료일 (선택)</label>
+<input type="date" name="deadline">
+<label>내가 이것을 원하는 이유</label>
+<textarea name="body" placeholder="이 꿈은 나에게 왜 중요할까?"></textarea>
+<label>나의 확언</label>
+<textarea name="thought" placeholder="나는 조금씩 원하는 삶에 가까워지고 있다"></textarea>
+<label>이번 주 가장 작은 실행</label>
+<textarea name="extra" placeholder="지금 바로 할 수 있는 한 가지"></textarea>
+<button class="primary">목표 저장</button>
+</form>
+</div>
+<div class="card">
+<h2>나의 실행 기록</h2>
+<div id="actionList"></div>
+</div>
+</section>
+
+<section id="happiness" class="hidden">
+<div class="card">
+<small>NOTE 03 · HAPPINESS</small>
+<h2>마음과 행복의 기록</h2>
+<p>있는 그대로의 나를 이해하는 자유로운 공간.</p>
+<div id="happyTopics" class="grid"></div>
+<div class="hint" id="happyGuide"></div>
+</div>
+<div class="card">
+<h2>오늘의 마음</h2>
+<form id="happyForm">
+<label>기록 날짜</label>
+<input type="date" name="date" required>
+<label>오늘의 감정</label>
+<select name="mood">
+<option>😌 평온</option>
+<option>😊 행복</option>
+<option>🥹 감동</option>
+<option>😮‍💨 피곤</option>
+<option>😟 불안</option>
+<option>😢 슬픔</option>
+<option>😠 화남</option>
+<option>🌱 복합적인 마음</option>
+</select>
+<label>오늘의 제목</label>
+<input name="title" required placeholder="오늘의 나를 표현한다면">
+<label>나의 솔직한 마음</label>
+<textarea name="body" placeholder="어떤 이야기든 편하게 적어봐"></textarea>
+<label>감사한 일 · 행복했던 순간</label>
+<textarea name="thought" placeholder="사소한 순간도 소중해"></textarea>
+<label>나에게 해주고 싶은 말</label>
+<textarea name="extra" placeholder="오늘의 나에게 다정한 한마디"></textarea>
+<button class="primary">마음 기록 저장</button>
+</form>
+</div>
+<div class="card">
+<h2>마음의 기록들</h2>
+<div id="happyList"></div>
+</div>
+</section>
+
+<section id="calendar" class="hidden">
+<div class="card">
+<small>MY DAYS</small>
+<h2>날짜별 기록</h2>
+<div class="row">
+<button id="prevMonth">‹ 이전 달</button>
+<strong id="monthTitle"></strong>
+<button id="nextMonth">다음 달 ›</button>
+</div>
+<hr>
+<div id="calendarGrid" class="days"></div>
+<hr>
+<label>선택한 날짜</label>
+<input type="date" id="chosenDate">
+<h2>이날의 기록</h2>
+<div id="dayList"></div>
+</div>
+<div class="card">
+<h2>전체 기록 검색</h2>
+<input id="search" placeholder="제목, 내용, 분야 검색">
+<div id="searchList"></div>
+</div>
+</section>
+
+<section id="review" class="hidden">
+<div class="card">
+<small>REFLECTION</small>
+<h2>나의 성찰</h2>
+<p>성장, 실행, 행복의 균형을 돌아보는 시간.</p>
+<div class="row">
+<button class="active" id="weekly">주간 회고</button>
+<button id="monthly">월간 회고</button>
+</div>
+<div class="hint" id="reviewGuide"></div>
+<form id="reviewForm">
+<label>회고 날짜</label>
+<input type="date" name="date" required>
+<label>이번 기간에 배운 것</label>
+<textarea name="learn" placeholder="새롭게 배운 지식이나 깨달음"></textarea>
+<label>실제로 실행한 것</label>
+<textarea name="acted" placeholder="작아도 실천한 일"></textarea>
+<label>행복했던 순간</label>
+<textarea name="joy" placeholder="기억하고 싶은 경험"></textarea>
+<label>부족했던 균형</label>
+<textarea name="balance" placeholder="휴식, 성장, 관계, 실행 중 무엇을 조정할까?"></textarea>
+<label>다음 기간의 작은 변화</label>
+<textarea name="next" placeholder="실천할 수 있는 한 가지"></textarea>
+<button class="primary">회고 저장</button>
+</form>
+</div>
+<div class="card">
+<h2>성찰 기록</h2>
+<div id="reviewList"></div>
+</div>
+</section>
+</main>
+<footer>
+GROWTH · ACTION · HAPPINESS
+<br>MY INNER GARDEN 2.0
+</footer>
+
 <script>
-const KEY="inner-garden-v1";let entries=[];try{const v=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(v))entries=v}catch(e){alert("저장된 기록을 읽지 못했어.")}
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(entries));return true}catch(e){alert("저장 공간 오류가 발생했어. 백업을 확인해 줘.");return false}};
-function show(tab){document.querySelectorAll("main>section").forEach(x=>x.classList.toggle("hidden",x.id!==tab));document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("active",x.dataset.tab===tab))}
-document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>show(b.dataset.tab));
-document.querySelectorAll("form").forEach(f=>f.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));entries.unshift({id:crypto.randomUUID(),type:f.dataset.type,title:d.title||"",body:d.body||"",extra:d.extra||"",date:d.date||"",mood:d.mood||"",done:false,created:new Date().toLocaleString("ko-KR")});if(save()){f.reset();render();alert("기록을 저장했어 🌿")}});
-function render(){for(const type of ["growth","action","happiness"]){const target=document.getElementById(type+"-list");target.innerHTML="";const items=entries.filter(x=>x.type===type);if(!items.length){target.textContent="첫 기록을 남겨봐 🌱";continue}items.forEach(x=>{const a=document.createElement("article");a.innerHTML='<strong>'+esc(x.title)+'</strong> '+(x.done?'<span class="pill">달성 완료</span>':'')+'<div class="muted">'+esc(x.created)+(x.date?' · 목표 '+esc(x.date):'')+(x.mood?' · '+esc(x.mood):'')+'</div><p>'+esc(x.body)+'</p><p>'+esc(x.extra)+'</p><div class="actions">'+(type==="action"?'<button data-op="done">달성 체크</button>':'')+'<button data-op="edit">수정</button><button data-op="delete">삭제</button></div>';a.querySelectorAll("button").forEach(b=>b.onclick=()=>operate(x.id,b.dataset.op));target.append(a)})}document.getElementById("stats").textContent="성장 "+entries.filter(x=>x.type==="growth").length+"개 · 꿈 "+entries.filter(x=>x.type==="action").length+"개 · 마음 "+entries.filter(x=>x.type==="happiness").length+"개"}
-function operate(id,op){const x=entries.find(v=>v.id===id);if(!x)return;if(op==="delete"){if(!confirm("이 기록을 삭제할까?"))return;entries=entries.filter(v=>v.id!==id)}else if(op==="done"){x.done=!x.done}else if(op==="edit"){const t=prompt("제목 수정",x.title);if(t===null)return;const b=prompt("내용 수정",x.body);if(b===null)return;const extra=prompt("생각 / 실천 수정",x.extra);if(extra===null)return;x.title=t;x.body=b;x.extra=extra}if(save())render()}
-document.getElementById("backup").onclick=()=>{const blob=new Blob([JSON.stringify(entries,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="inner-garden-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
-document.getElementById("restore").onclick=()=>document.getElementById("restore-file").click();
-document.getElementById("restore-file").onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data)||!data.every(x=>x&&typeof x.id==="string"&&["growth","action","happiness"].includes(x.type)))throw Error();if(!confirm("현재 기록을 백업 파일의 기록으로 교체할까?"))return;const old=entries;entries=data;if(!save()){entries=old;return}render();alert("복원 완료")}catch(e){alert("올바른 백업 파일이 아니야.")}e.target.value=""};
+const KEY="inner-garden-v2";
+const OLD="inner-garden-v1";
+
+let records=[];
+
+try {
+  const saved=localStorage.getItem(KEY)
+    ||localStorage.getItem(OLD)
+    ||"[]";
+  const parsed=JSON.parse(saved);
+  if(Array.isArray(parsed)) records=parsed;
+} catch(e) {
+  alert("저장된 기록을 읽지 못했어.");
+}
+
+const topics={
+  growth:[
+    [
+      "📚 독서·필사",
+      "오늘 마음에 남은 문장은 무엇일까? 왜 이 문장이 나에게 특별할까? 내 삶에 적용할 한 가지는?"
+    ],
+    [
+      "💰 경제·금융",
+      "오늘 배운 경제 개념은 무엇일까? 실제 돈 관리와 자산 계획에 어떻게 적용할까?"
+    ],
+    [
+      "💼 사업·경영",
+      "오늘 배운 경영 원리는 무엇일까? 나의 일과 의사결정에 어떻게 활용할까?"
+    ],
+    [
+      "🧠 심리학",
+      "오늘 이해한 심리 개념은 무엇일까? 내 생각이나 관계에서 발견한 것은?"
+    ],
+    [
+      "🌱 자기계발",
+      "어떤 습관과 사고방식을 발전시키고 싶을까? 오늘의 작은 실천은?"
+    ],
+    [
+      "🧘 마음공부",
+      "나는 어떤 생각을 사실로 믿고 있을까? 더 유연하게 바라볼 방법은?"
+    ],
+    [
+      "✍️ 글씨 교정",
+      "오늘 연습할 문장을 천천히 3~5줄 적어보자. 글자 크기와 간격은 일정한가?"
+    ],
+    [
+      "📖 읽고 싶은 책",
+      "읽고 싶은 책과 이유를 적어보자. 읽기 시작할 때 다시 확인하자."
+    ],
+    [
+      "✨ 자유로운 배움",
+      "새롭게 궁금해진 것, 알게 된 것, 내 생각을 자유롭게 기록하자."
+    ]
+  ],
+
+  action:[
+    [
+      "💰 경제적 자유",
+      "나는 어떤 경제적 자유를 원하는가? 이를 위한 첫 번째 행동은?"
+    ],
+    [
+      "💼 일과 성취",
+      "일과 커리어에서 이루고 싶은 것은? 가장 작은 실행은?"
+    ],
+    [
+      "🧠 지적 성장",
+      "어떤 지식과 능력을 갖추고 싶은가? 이번 주 무엇을 배울까?"
+    ],
+    [
+      "🤍 마음과 정신",
+      "어떤 마음 상태로 살고 싶은가? 나를 돌보는 행동은?"
+    ],
+    [
+      "💪 건강과 몸",
+      "건강을 위해 만들고 싶은 생활 습관은?"
+    ],
+    [
+      "💕 사랑과 관계",
+      "어떤 관계를 가꾸고 싶은가? 내가 먼저 할 수 있는 행동은?"
+    ],
+    [
+      "✈️ 경험과 즐거움",
+      "여행, 취미, 문화생활 중 경험하고 싶은 것은?"
+    ],
+    [
+      "🌷 나만의 삶",
+      "어떤 공간과 생활방식에서 살고 싶은가?"
+    ],
+    [
+      "📝 인생 선언문",
+      "나는 어떤 사람으로 살고 싶은가? 무엇을 소중히 여기는가?"
+    ],
+    [
+      "🌟 핵심 가치 5가지",
+      "내 인생에서 절대 놓치고 싶지 않은 가치는 무엇인가?"
+    ],
+    [
+      "🗓️ 1년·3년 비전",
+      "1년 후, 3년 후 어떤 모습으로 살고 싶은가?"
+    ],
+    [
+      "💬 나의 확언",
+      "현재의 나를 응원하는 현실적인 행동 확언을 적어보자."
+    ],
+    [
+      "🏆 성취와 기념",
+      "이룬 일과 그 과정에서 배운 점을 기록하고 축하하자."
+    ]
+  ],
+
+  happiness:[
+    [
+      "💌 나에게 보내는 편지",
+      "지금의 나에게 어떤 말을 해주고 싶은가?"
+    ],
+    [
+      "🌸 나를 행복하게 하는 것 30가지",
+      "작은 것부터 큰 것까지 나를 기쁘게 하는 것을 떠올려보자."
+    ],
+    [
+      "🤍 내가 좋아하는 나의 모습",
+      "내 성격, 행동, 태도 중 마음에 드는 것은?"
+    ],
+    [
+      "🫶 힘든 날의 돌봄",
+      "힘든 날 나를 진정시키는 행동과 도움이 되는 말은?"
+    ],
+    [
+      "🌿 마음이 편안해지는 문장",
+      "나를 위로하고 안정시키는 문장을 모아보자."
+    ],
+    [
+      "😊 감사 일기",
+      "오늘 감사한 일 세 가지를 적어보자."
+    ],
+    [
+      "🧠 감정 이해",
+      "어떤 감정이 들었고, 그 감정 아래 어떤 욕구가 있을까?"
+    ],
+    [
+      "✨ 행복한 순간",
+      "오늘 나답게 살았다고 느낀 순간은?"
+    ],
+    [
+      "📝 자유로운 일기",
+      "형식 없이 내 생각과 감정을 자유롭게 적어보자."
+    ]
+  ]
+};
+
+let selected={
+  growth:0,
+  action:0,
+  happiness:0
+};
+
+let reviewType="weekly";
+
+const esc=s=>String(s??"").replace(
+  /[&<>"']/g,
+  c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c])
+);
+
+const today=()=>{
+  const d=new Date();
+  return d.getFullYear()+"-"
+    +String(d.getMonth()+1).padStart(2,"0")+"-"
+    +String(d.getDate()).padStart(2,"0");
+};
+
+const dateOf=r=>{
+  if(r.date && /^\d{4}-\d{2}-\d{2}$/.test(r.date)){
+    return r.date;
+  }
+
+  const m=String(r.created||"").match(
+    /(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/
+  );
+
+  return m
+    ?m[1]+"-"+m[2].padStart(2,"0")+"-"+m[3].padStart(2,"0")
+    :today();
+};
+
+function persist(){
+  try {
+    localStorage.setItem(KEY,JSON.stringify(records));
+    return true;
+  } catch(e) {
+    alert("저장 오류야. 백업과 저장 공간을 확인해줘.");
+    return false;
+  }
+}
+
+function page(id){
+  document.querySelectorAll("main>section").forEach(s=>{
+    s.classList.toggle("hidden",s.id!==id);
+  });
+
+  document.querySelectorAll("#nav button").forEach(b=>{
+    b.classList.toggle("active",b.dataset.page===id);
+  });
+
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll("#nav button").forEach(b=>{
+  b.onclick=()=>page(b.dataset.page);
+});
+
+function topicUI(type,holder,guide){
+  const box=document.getElementById(holder);
+  box.innerHTML="";
+
+  topics[type].forEach((t,i)=>{
+    const b=document.createElement("button");
+
+    b.className="tile"+(
+      i===selected[type]?" selected":""
+    );
+
+    b.textContent=t[0];
+
+    b.onclick=()=>{
+      selected[type]=i;
+      topicUI(type,holder,guide);
+    };
+
+    box.append(b);
+  });
+
+  document.getElementById(guide).textContent=
+    "작성 가이드 · "
+    +topics[type][selected[type]][1];
+}
+
+topicUI("growth","growthTopics","growthGuide");
+topicUI("action","actionTopics","actionGuide");
+topicUI("happiness","happyTopics","happyGuide");
+
+document.querySelectorAll("input[type=date]").forEach(i=>{
+  if(i.name==="date") i.value=today();
+});
+
+function add(type,form){
+  const d=Object.fromEntries(new FormData(form));
+
+  const r={
+    id:crypto.randomUUID(),
+    type:type,
+    topic:type==="review"
+      ?(reviewType==="weekly"?"주간 회고":"월간 회고")
+      :topics[type][selected[type]][0],
+    title:d.title||(
+      reviewType==="weekly"?"주간 회고":"월간 회고"
+    ),
+    date:d.date||today(),
+    deadline:d.deadline||"",
+    mood:d.mood||"",
+    body:d.body||"",
+    thought:d.thought||"",
+    extra:d.extra||"",
+    done:false,
+    created:new Date().toLocaleString("ko-KR")
+  };
+
+  if(type==="review"){
+    r.body="배운 것: "+(d.learn||"")
+      +"\n실행한 것: "+(d.acted||"")
+      +"\n행복한 순간: "+(d.joy||"");
+
+    r.thought="균형: "+(d.balance||"");
+    r.extra="다음 변화: "+(d.next||"");
+  }
+
+  records.unshift(r);
+
+  if(persist()){
+    form.reset();
+    form.querySelector("[name=date]").value=today();
+    render();
+    alert("정원에 기록을 심었어 🌱");
+  }
+}
+
+for(const [id,type] of [
+  ["growthForm","growth"],
+  ["actionForm","action"],
+  ["happyForm","happiness"],
+  ["reviewForm","review"]
+]){
+  document.getElementById(id).onsubmit=e=>{
+    e.preventDefault();
+    add(type,e.target);
+  };
+}
+
+function entry(r){
+  const el=document.createElement("div");
+  el.className="entry";
+
+  el.innerHTML=
+    '<div class="row">'
+    +'<span class="tag">'+esc(r.topic||r.type)+'</span>'
+    +'<span class="muted">'+esc(dateOf(r))+'</span>'
+    +'</div>'
+    +'<h3>'+esc(r.title)+'</h3>'
+    +(r.mood?'<div>'+esc(r.mood)+'</div>':'')
+    +(r.deadline
+      ?'<div class="muted">목표일 '+esc(r.deadline)+'</div>'
+      :'')
+    +(r.done?'<span class="tag">달성 완료</span>':'')
+    +'<p>'+esc(r.body)+'</p>'
+    +'<p>'+esc(r.thought)+'</p>'
+    +'<p>'+esc(r.extra)+'</p>'
+    +'<div class="row">'
+    +(r.type==="action"
+      ?'<button data-op="done">달성 체크</button>'
+      :'')
+    +'<button data-op="edit">수정</button>'
+    +'<button data-op="delete">삭제</button>'
+    +'</div>';
+
+  el.querySelectorAll("button").forEach(b=>{
+    b.onclick=()=>change(r.id,b.dataset.op);
+  });
+
+  return el;
+}
+
+function fill(id,items){
+  const el=document.getElementById(id);
+  el.innerHTML="";
+
+  if(!items.length){
+    el.textContent="아직 기록이 없어. 첫 기록을 남겨봐 🌱";
+    return;
+  }
+
+  items.forEach(r=>el.append(entry(r)));
+}
+
+function change(id,op){
+  const r=records.find(x=>x.id===id);
+  if(!r)return;
+
+  if(op==="delete"){
+    if(!confirm("이 기록을 삭제할까?"))return;
+
+    const old=records;
+    records=records.filter(x=>x.id!==id);
+
+    if(!persist()){
+      records=old;
+    }
+
+  }else if(op==="done"){
+    r.done=!r.done;
+    persist();
+
+  }else if(op==="edit"){
+    const fields=[
+      ["title","제목"],
+      ["body","내용"],
+      ["thought","생각·확언"],
+      ["extra","실천·메모"]
+    ];
+
+    const updates={};
+
+    for(const [field,label] of fields){
+      const v=prompt(label,r[field]||"");
+      if(v===null)return;
+      updates[field]=v;
+    }
+
+    Object.assign(r,updates);
+    persist();
+  }
+
+  render();
+}
+
+let month=new Date();
+month.setDate(1);
+
+let chosen=today();
+
+function calendar(){
+  document.getElementById("monthTitle").textContent=
+    month.getFullYear()+"년 "+(month.getMonth()+1)+"월";
+
+  const box=document.getElementById("calendarGrid");
+  box.innerHTML="";
+
+  ["일","월","화","수","목","금","토"].forEach(x=>{
+    const e=document.createElement("strong");
+    e.textContent=x;
+    box.append(e);
+  });
+
+  const start=month.getDay();
+
+  const n=new Date(
+    month.getFullYear(),
+    month.getMonth()+1,
+    0
+  ).getDate();
+
+  for(let i=0;i<start;i++){
+    box.append(document.createElement("span"));
+  }
+
+  for(let d=1;d<=n;d++){
+    const date=
+      month.getFullYear()+"-"
+      +String(month.getMonth()+1).padStart(2,"0")+"-"
+      +String(d).padStart(2,"0");
+
+    const b=document.createElement("button");
+    b.textContent=d;
+
+    b.className=
+      (records.some(r=>dateOf(r)===date)?"marked ":"")
+      +(chosen===date?"chosen":"");
+
+    b.onclick=()=>{
+      chosen=date;
+      document.getElementById("chosenDate").value=date;
+      calendar();
+    };
+
+    box.append(b);
+  }
+
+  fill(
+    "dayList",
+    records.filter(r=>dateOf(r)===chosen)
+  );
+}
+
+document.getElementById("prevMonth").onclick=()=>{
+  month.setMonth(month.getMonth()-1);
+  calendar();
+};
+
+document.getElementById("nextMonth").onclick=()=>{
+  month.setMonth(month.getMonth()+1);
+  calendar();
+};
+
+document.getElementById("chosenDate").value=chosen;
+
+document.getElementById("chosenDate").onchange=e=>{
+  if(!e.target.value)return;
+
+  chosen=e.target.value;
+  month=new Date(chosen+"T12:00:00");
+  month.setDate(1);
+  calendar();
+};
+
+document.getElementById("search").oninput=e=>{
+  const q=e.target.value.toLowerCase();
+
+  fill(
+    "searchList",
+    q
+      ?records.filter(r=>
+          JSON.stringify(r).toLowerCase().includes(q)
+        )
+      :[]
+  );
+};
+
+function reviewGuide(){
+  document.getElementById("reviewGuide").textContent=
+    reviewType==="weekly"
+      ?"일요일에 이번 주 배움, 실행, 행복, 부족한 균형, 다음 주 작은 행동을 돌아보자."
+      :"이번 달의 성장과 성취, 행복했던 순간을 돌아보고 다음 달의 중요한 목표 1~3개를 정해보자.";
+
+  document.getElementById("weekly").classList.toggle(
+    "active",
+    reviewType==="weekly"
+  );
+
+  document.getElementById("monthly").classList.toggle(
+    "active",
+    reviewType==="monthly"
+  );
+}
+
+document.getElementById("weekly").onclick=()=>{
+  reviewType="weekly";
+  reviewGuide();
+};
+
+document.getElementById("monthly").onclick=()=>{
+  reviewType="monthly";
+  reviewGuide();
+};
+
+reviewGuide();
+
+function render(){
+  fill(
+    "growthList",
+    records.filter(r=>r.type==="growth")
+  );
+
+  fill(
+    "actionList",
+    records.filter(r=>r.type==="action")
+  );
+
+  fill(
+    "happyList",
+    records.filter(r=>r.type==="happiness")
+  );
+
+  fill(
+    "reviewList",
+    records.filter(r=>r.type==="review")
+  );
+
+  document.getElementById("stats").textContent=
+    "📖 성장 "
+    +records.filter(r=>r.type==="growth").length
+    +"개 · ✨ 목표 "
+    +records.filter(r=>r.type==="action").length
+    +"개 · 🤍 마음 "
+    +records.filter(r=>r.type==="happiness").length
+    +"개";
+
+  calendar();
+
+  const q=document.getElementById("search").value.toLowerCase();
+
+  fill(
+    "searchList",
+    q
+      ?records.filter(r=>
+          JSON.stringify(r).toLowerCase().includes(q)
+        )
+      :[]
+  );
+}
+
+document.getElementById("backup").onclick=()=>{
+  const blob=new Blob(
+    [JSON.stringify(records,null,2)],
+    {type:"application/json"}
+  );
+
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="my-inner-garden-backup.json";
+  a.click();
+
+  setTimeout(()=>{
+    URL.revokeObjectURL(a.href);
+  },3000);
+};
+
+document.getElementById("restore").onclick=()=>{
+  document.getElementById("restoreFile").click();
+};
+
+document.getElementById("restoreFile").onchange=async e=>{
+  const f=e.target.files[0];
+  if(!f)return;
+
+  try{
+    const v=JSON.parse(await f.text());
+
+    if(
+      !Array.isArray(v)
+      ||!v.every(r=>
+        r
+        &&typeof r.id==="string"
+        &&["growth","action","happiness","review"].includes(r.type)
+      )
+    ){
+      throw Error();
+    }
+
+    if(!confirm("현재 기록을 백업 내용으로 교체할까?")){
+      return;
+    }
+
+    const old=records;
+    records=v;
+
+    if(!persist()){
+      records=old;
+      return;
+    }
+
+    render();
+    alert("복원 완료");
+
+  }catch(err){
+    alert("올바른 백업 파일인지 확인해줘");
+  }
+
+  e.target.value="";
+};
+
 render();
-</script></body></html>
+</script>
+</body>
+</html>
